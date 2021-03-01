@@ -1,0 +1,44 @@
+<!doctype html><html class=no-js lang=en-us prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta property="og:title" content="SpotBot Workshop"><meta property="og:type" content="website"><meta property="og:url" content><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name=generator content="Hugo 0.80.0"><meta name=description content="My AWS Workshop"><meta name=author content="Jane Architect"><link rel="shortcut icon" href=https://a0.awsstatic.com/libra-css/images/site/fav/favicon.ico type=image/ico><link rel=icon href=https://a0.awsstatic.com/libra-css/images/site/fav/favicon.ico type=image/ico><title>环境准备 :: SpotBot Workshop</title><link href=../css/nucleus.css rel=stylesheet><link href=../css/fontawesome-all.min.css rel=stylesheet><link href=../css/hybrid.css rel=stylesheet><link href=../css/featherlight.min.css rel=stylesheet><link href=../css/perfect-scrollbar.min.css rel=stylesheet><link href=../css/auto-complete.css rel=stylesheet><link href=../css/atom-one-dark-reasonable.css rel=stylesheet><link href=../css/theme.css rel=stylesheet><link href=../css/hugo-theme.css rel=stylesheet><link href=../css/theme-aws.css rel=stylesheet><script src=../js/jquery-3.3.1.min.js></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}:not(pre)>code+span.copy-to-clipboard{display:none}</style></head><body data-url=../02test/0201overview.html><nav id=sidebar class=showVisitedLinks><div id=header-wrapper><div id=header><div><a href=../ title="Go home"><img style=vertical-align:middle src=../images/logo.png height=70px></a></div></div><div class=searchbox><label for=search-by><i class="fas fa-search"></i></label><input data-search-input id=search-by type=search placeholder=Search...>
+<span data-search-clear><i class="fas fa-times"></i></span></div><script type=text/javascript src=../js/lunr.min.js></script><script type=text/javascript src=../js/auto-complete.js></script><script type=text/javascript>var baseurl="";</script><script type=text/javascript src=../js/search.js></script></div><div class=highlightable><ul class=topics><li data-nav-id=/01introduction.html title="背景介绍: what is ocr" class=dd-item><a href=../01introduction.html><b>1.</b> 背景介绍: what is ocr
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/01introduction/100usecase.html title=使用场景 class=dd-item><a href=../01introduction/100usecase.html>使用场景
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/01introduction/200ocrmodel.html title=ocr流程 class=dd-item><a href=../01introduction/200ocrmodel.html>ocr流程
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/01introduction/300paddleocr.html title=ocr实现框架 class=dd-item><a href=../01introduction/300paddleocr.html>ocr实现框架
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/02test.html title=使用预训练模型测试 class="dd-item
+parent"><a href=../02test.html><b>2. </b>使用预训练模型测试
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/02test/0201overview.html title=环境准备 class="dd-item
+parent
+active"><a href=../02test/0201overview.html><b>2.0</b>环境准备
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/02test/0210component.html title=测试 class=dd-item><a href=../02test/0210component.html><b>2.1</b> 测试
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/03label.html title=标注工具 class=dd-item><a href=../03label.html><b>3. </b>标注工具
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/04train.html title=模型训练 class=dd-item><a href=../04train.html><b>4. </b>模型训练
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/04train/0401prepare.html title=生成训练数据 class=dd-item><a href=../04train/0401prepare.html><b>3.1 </b>生成训练数据
+<i class="fas fa-check read-icon"></i></a></li></ul></li></ul><section id=prefooter><hr><ul><li><a class=padding href=# data-clear-history-toggle><i class="fas fa-history fa-fw"></i>Clear History</a></li></ul></section><section id=footer><left><h5 class=copyright>&copy; 2019 Amazon Web Services, Inc. or its Affiliates. All rights reserved.<h5></left></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fa fa-bars"></i></a></span><span class=links><a href=../>AWS Datalab Hackathon - hands on OCR</a> > <a href=../02test.html>使用预训练模型测试</a> > 环境准备</span></div></div></div><div id=chapter><div id=body-inner><h1>环境准备</h1><p><strong>EC2 环境准备</strong></p><p>要完成本章节操作步骤，您需要准备一台EC2 实例：</p><p>AMI : Deep Learning AMI (Ubuntu 18.04) Version 39.0 - ami-08773c85de0140def
+实例类型： g4dn.xlarge （4C/16G）
+存储: 150G</p><p><strong>构建环境</strong></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#75715e>#pull docker</span>
+docker pull paddlepaddle/paddle:2.0.0rc1-gpu-cuda10.1-cudnn7
+
+<span style=color:#75715e>#attach </span>
+sudo nvidia-docker run --name ppocr2 -v $PWD:/paddle --shm-size<span style=color:#f92672>=</span>64G --network<span style=color:#f92672>=</span>host -it paddlepaddle/paddle:2.0.0rc1-gpu-cuda10.1-cudnn7 /bin/bash
+
+<span style=color:#75715e>#  Install PaddlePaddle Fluid v2.0</span>
+python3.7 -m pip install --upgrade pip
+
+<span style=color:#75715e># If you have cuda9 or cuda10 installed on your machine, please run the following command to install</span>
+python3.7 -m pip install paddlepaddle-gpu<span style=color:#f92672>==</span>2.0rc1
+
+<span style=color:#75715e># Recommend</span>
+git clone https://github.com/jackie930/PaddleOCR.git
+
+cd PaddleOCR
+python3.7 -m pip install -r requirements.txt
+
+
+mkdir inference <span style=color:#f92672>&amp;&amp;</span> cd inference
+<span style=color:#75715e># Download the detection model of the ultra-lightweight Chinese OCR model and uncompress it</span>
+wget https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_det_infer.tar <span style=color:#f92672>&amp;&amp;</span> tar xf ch_ppocr_mobile_v2.0_det_infer.tar
+<span style=color:#75715e># Download the recognition model of the ultra-lightweight Chinese OCR model and uncompress it</span>
+wget https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_rec_infer.tar <span style=color:#f92672>&amp;&amp;</span> tar xf ch_ppocr_mobile_v2.0_rec_infer.tar
+<span style=color:#75715e># Download the angle classifier model of the ultra-lightweight Chinese OCR model and uncompress it</span>
+wget https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_cls_infer.tar <span style=color:#f92672>&amp;&amp;</span> tar xf ch_ppocr_mobile_v2.0_cls_infer.tar
+cd ..
+</code></pre></div><footer class=footline></footer></div></div></div><div id=navigation><a class="nav nav-prev" href=../02test.html title=使用预训练模型测试><i class="fa fa-chevron-left"></i></a><a class="nav nav-next" href=../02test/0210component.html title=测试 style=margin-right:0><i class="fa fa-chevron-right"></i></a></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=../js/clipboard.min.js></script><script src=../js/perfect-scrollbar.min.js></script><script src=../js/perfect-scrollbar.jquery.min.js></script><script src=../js/jquery.sticky.js></script><script src=../js/featherlight.min.js></script><script src=../js/html5shiv-printshiv.min.js></script><script src=../js/highlight.pack.js></script><script>hljs.initHighlightingOnLoad();</script><script src=../js/modernizr.custom-3.6.0.js></script><script src=../js/learn.js></script><script src=../js/hugo-learn.js></script><link href=../mermaid/mermaid.css rel=stylesheet><script src=../mermaid/mermaid.js></script><script>mermaid.initialize({startOnLoad:true});</script></body></html>

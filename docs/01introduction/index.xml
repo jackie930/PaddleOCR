@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>背景介绍: what is ocr on SpotBot Workshop</title><link>/01introduction.html</link><description>Recent content in 背景介绍: what is ocr on SpotBot Workshop</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><atom:link href="/01introduction/index.xml" rel="self" type="application/rss+xml"/><item><title>使用场景</title><link>/01introduction/100usecase.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/01introduction/100usecase.html</guid><description>使用场景 根据识别场景，可大致将OCR分为识别特定场景的专用OCR和识别多种场景的通用OCR.
+就前者而言，证件识别以及车牌识别就是专用OCR的典型案例。针对特定场景进行设计、优化以达到最好的特定场景下的效果展示。那通用的OCR就是使用在更多、更复杂的场景下，拥有比较好的泛性。在这个过程中由于场景的不确定性，比如：图片背景极其丰富、亮度不均衡、光照不均衡、残缺遮挡、文字扭曲、字体多样等等问题，会带来极大的挑战</description></item><item><title>ocr流程</title><link>/01introduction/200ocrmodel.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/01introduction/200ocrmodel.html</guid><description>模型架构 一个完整的ocr流程，包含了不止一个深度学习模型，也不仅仅只是模型的串联。一般，我们会使用如下的步骤
+下面我们拆解一下每个步骤的内容。
+1.图像预处理 图像预处理通常是针对图像的成像问题进行修正。输入文本经过扫描仪进入计算机后，由于纸张的厚薄、光洁度和印刷质量都会造成文字畸变，产生断笔、粘连和污点等干扰，所以在进行文字识别之前，要对带有噪声的文字图像进行处理。由于这种处理工作是在文字识别之前，所以被称为预处理。预处理一般包括灰度化、二值化，几何变换（透视、扭曲、旋转等），畸变校正，去除模糊、图像增强和光线校正，行、字切分，平滑，规范化等等。
+2.文本检测 给定一张图片，我们需要找出这张图里文字出现的所有位置位置，那这个任务其实跟目标检测任务差别不大，即找出每个物体在图片中的位置，并标出该包围框里的物体的类别。
+3.文本识别 识别文字算法均采用CRNN（Convolutional Recurrent Neural Network）即卷积递归神经网络。其是DCNN和RNN的组合，专门用于识别图像中的序列式对象。与CTC loss配合使用，进行文字识别，可以直接从文本词级或行级的标注中学习，不需要详细的字符级的标注。
+4.后处理 表格识别/模版匹配/ner/规则矫正/…
+5. 结果输出 一般输出为json字段的key-value结果。</description></item><item><title>ocr实现框架</title><link>/01introduction/300paddleocr.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/01introduction/300paddleocr.html</guid><description>市场上开源的ocr框架有以下几个。
+Tesseract OCR 2.EasyOCR paddleocr Tesseract OCR
+Tesseract was originally developed at Hewlett-Packard Laboratories Bristol and at Hewlett-Packard Co, Greeley Colorado between 1985 and 1994, with some more changes made in 1996 to port to Windows, and some C++izing in 1998. In 2005 Tesseract was open sourced by HP. Since 2006 it is developed by Google.
+The latest (LSTM based) stable version is 4.1.1, released on December 26, 2019.</description></item></channel></rss>
