@@ -5,7 +5,7 @@ then
     exit
 fi
 
-BASE_DIR="./data_cn/"
+BASE_DIR="./train_data/"
 
 if [ ! -d ${BASE_DIR} ];then
 mkdir ${BASE_DIR}
@@ -38,8 +38,10 @@ tail -n ${val_count}   './data/test.txt'  > ${BASE_DIR}'valid.txt'
 
 trdg \
 -c $train_count -l cn -i ${BASE_DIR}'train.txt' -na 2 \
---output_dir ${BASE_DIR}"images/train" -ft "./font/香港标准宋体繁体.ttc"
+--output_dir ${BASE_DIR}"train" -ft "./font/香港标准宋体繁体.ttc"
 
 trdg \
 -c $val_count -l cn -i ${BASE_DIR}'valid.txt' -na 2 \
---output_dir ${BASE_DIR}"images/valid" -ft "./font/香港标准宋体繁体.ttc"
+--output_dir ${BASE_DIR}"test" -ft "./font/香港标准宋体繁体.ttc"
+
+#prepare folder
