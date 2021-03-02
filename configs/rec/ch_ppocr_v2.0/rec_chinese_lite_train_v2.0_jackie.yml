@@ -1,6 +1,6 @@
 Global:
   use_gpu: true
-  epoch_num: 500
+  epoch_num: 100
   log_smooth_window: 20
   print_batch_step: 10
   save_model_dir: ./output/rec_chinese_lite_v2.0
@@ -63,8 +63,8 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: ./data_cn/
-    label_file_list: ["./train_data/rec_gt_train.txt"]
+    data_dir: train_data/
+    label_file_list: ["train_data/rec_gt_train.txt"]
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
@@ -77,15 +77,15 @@ Train:
           keep_keys: ['image', 'label', 'length'] # dataloader will return list in this order
   loader:
     shuffle: True
-    batch_size_per_card: 256
+    batch_size_per_card: 4
     drop_last: True
     num_workers: 8
 
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: ./train_data
-    label_file_list: ["./train_data/rec_gt_test.txt"]
+    data_dir: train_data
+    label_file_list: ["train_data/rec_gt_test.txt"]
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
@@ -98,5 +98,5 @@ Eval:
   loader:
     shuffle: False
     drop_last: False
-    batch_size_per_card: 256
+    batch_size_per_card: 4
     num_workers: 8
