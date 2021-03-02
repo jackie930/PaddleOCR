@@ -11,13 +11,6 @@ if [ ! -d ${BASE_DIR} ];then
 mkdir ${BASE_DIR}
 fi
 
-if [ ! -d ${BASE_DIR}"images" ]
-then
-    mkdir ${BASE_DIR}"images"
-    mkdir ${BASE_DIR}"images/train"
-    mkdir ${BASE_DIR}"images/valid"
-fi
-
 echo "start --------- generate  image --"
 TOTAL_COUNT=$(wc -l './data/test.txt' | awk '{print $1}')
 
@@ -44,4 +37,7 @@ trdg \
 -c $val_count -l cn -i ${BASE_DIR}'valid.txt' -na 2 \
 --output_dir ${BASE_DIR}"test" -ft "./font/香港标准宋体繁体.ttc"
 
-#prepare folder
+#process folder
+python fix_txt.py
+
+echo "--finish generate images --"

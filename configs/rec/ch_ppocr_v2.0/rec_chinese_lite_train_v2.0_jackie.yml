@@ -9,7 +9,7 @@ Global:
   eval_batch_step: [0, 2000]
   # if pretrained_model is saved in static mode, load_static_weights must set to True
   cal_metric_during_train: True
-  pretrained_model:
+  pretrained_model: pretrain_models/ch_ppocr_mobile_v2.0_rec_pre/best_accuracy
   checkpoints: 
   save_inference_dir:
   use_visualdl: False
@@ -63,8 +63,8 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: ./train_data/
-    label_file_list: ["./train_data/train_list.txt"]
+    data_dir: ./data_cn/
+    label_file_list: ["./train_data/train.txt"]
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
@@ -85,7 +85,7 @@ Eval:
   dataset:
     name: SimpleDataSet
     data_dir: ./train_data
-    label_file_list: ["./train_data/val_list.txt"]
+    label_file_list: ["./train_data/val.txt"]
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
