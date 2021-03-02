@@ -13,6 +13,6 @@ RUN git clone https://github.com/jackie930/PaddleOCR.git /PaddleOCR && cd /Paddl
 
 RUN pip3.7 install -r /PaddleOCR/requirements.txt
 
-COPY /train_data /PaddleOCR/
+COPY /train_data /PaddleOCR/train_data
 
 WORKDIR /PaddleOCR
