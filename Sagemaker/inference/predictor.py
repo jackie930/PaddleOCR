@@ -49,11 +49,21 @@ def bbox_main(imgpath, detect='paddle'):
     (filepath, tempfilename) = os.path.split(imgpath)
     (filename, extension) = os.path.splitext(tempfilename)
 
+    # make sure the model parameters exist
+    for i in ['/opt/program/inference/ch_ppocr_mobile_v2.0_det_infer',
+              '/opt/program/inference/ch_ppocr_mobile_v2.0_rec_infer',
+              '/opt/program/inference/ch_ppocr_mobile_v2.0_cls_infer']:
+        if os.path.exists(i):
+            print("<<<<pretrained model exists for :", i)
+        else:
+            print("<<< make sure the model parameters exist for: ", i)
+            break
+
     if detect == 'paddle':
         print ("start!!!!")
-        ocr = PaddleOCR(det_model_dir='./inference/ch_ppocr_mobile_v2.0_det_infer',
-                        rec_model_dir='./inference/ch_ppocr_mobile_v2.0_rec_infer',
-                        cls_model_dir='./inference/ch_ppocr_mobile_v2.0_cls_infer',
+        ocr = PaddleOCR(det_model_dir='/opt/program/inference/ch_ppocr_mobile_v2.0_det_infer',
+                        rec_model_dir='/opt/program/inference/ch_ppocr_mobile_v2.0_rec_infer',
+                        cls_model_dir='/opt/program/inference/ch_ppocr_mobile_v2.0_cls_infer',
                         use_pdserving=False)  # need to run only once to download and load model into memory
         print ("test!!!!")
         result = ocr.ocr(imgpath, rec=True)
@@ -124,18 +134,15 @@ def invocations():
     # LOAD MODEL
     label = ''
     try:
-        label = bbox_main(download_file_name, detect='paddle')
+        res = bbox_main(download_file_name, detect='paddle')
     except Exception as exception:
         print(exception)
 
-    #make inference
-    classes, confidences, boxes = yolo_infer(weight,names,cfg, download_file_name)
-    #print("image_path:{},label:{}".format(download_file_name, label))
     print ("Done inference! ")
     inference_result = {
-        'classes':classes.tolist(),
-        'confidences':confidences.tolist(),
-        'boxes':boxes.tolist()
+        'classes':res['label'].tolist(),
+        'confidences':res['confidence'].tolist(),
+        'boxes':res['bbox'].tolist()
     }
     _payload = json.dumps(inference_result,ensure_ascii=False)
 
