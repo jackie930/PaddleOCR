@@ -18,16 +18,16 @@ RUN pip3.7 install networkx==2.3 flask gevent gunicorn boto3
 RUN pip3.7 install paddlepaddle-gpu==2.0rc1
 
 #add folder
-RUN git clone https://github.com/jackie930/PaddleOCR.git /PaddleOCR
+RUN git clone https://github.com/jackie930/PaddleOCR.git /opt/program/
 
 #download model
-RUN mkdir inference/
-RUN cd inference/
+RUN mkdir /opt/program/inference/
+RUN cd /opt/program/inference/
 RUN wget -P ./ https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_det_infer.tar && tar -xf ch_ppocr_mobile_v2.0_det_infer.tar && rm -rf ch_ppocr_mobile_v2.0_det_infer.tar
 RUN wget -P ./ https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_cls_infer.tar && tar -xf ch_ppocr_mobile_v2.0_cls_infer.tar && rm -rf ch_ppocr_mobile_v2.0_cls_infer.tar
 RUN wget -P ./ https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_rec_infer.tar && tar -xf ch_ppocr_mobile_v2.0_rec_infer.tar && rm -rf ch_ppocr_mobile_v2.0_rec_infer.tar
 
-RUN pip3.7 install -r /PaddleOCR/requirements.txt
+RUN pip3.7 install -r /opt/program/requirements.txt
 
 ### Install nginx notebook
 RUN apt-get -y update && apt-get install -y --no-install-recommends \
