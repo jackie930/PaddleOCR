@@ -23,9 +23,9 @@ RUN git clone https://github.com/jackie930/PaddleOCR.git /PaddleOCR
 #download model
 RUN mkdir inference/
 RUN cd inference/
-RUN wget -P ./inference/ https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_det_infer.tar && tar -xf ch_ppocr_mobile_v2.0_det.tar && rm -rf ch_ppocr_mobile_v2.0_det.tar
-RUN wget -P ./inference/ https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_cls_infer.tar && tar -xf ch_ppocr_mobile_v2.0_cls.tar && rm -rf ch_ppocr_mobile_v2.0_cls.tar
-RUN wget -P ./inference/ https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_rec_infer.tar && tar -xf ch_ppocr_mobile_v2.0_rec.tar && rm -rf ch_ppocr_mobile_v2.0_rec.tar
+RUN wget -P ./inference/ https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_det_infer.tar && tar -xf ch_ppocr_mobile_v2.0_det_infer.tar && rm -rf ch_ppocr_mobile_v2.0_det_infer.tar
+RUN wget -P ./inference/ https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_cls_infer.tar && tar -xf ch_ppocr_mobile_v2.0_cls_infer.tar && rm -rf ch_ppocr_mobile_v2.0_cls_infer.tar
+RUN wget -P ./inference/ https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_rec_infer.tar && tar -xf ch_ppocr_mobile_v2.0_rec_infer.tar && rm -rf ch_ppocr_mobile_v2.0_rec_infer.tar
 
 RUN pip3.7 install -r /PaddleOCR/requirements.txt
 
