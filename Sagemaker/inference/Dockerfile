@@ -44,5 +44,5 @@ RUN ln -sf /dev/stderr /var/log/nginx/error.log
 COPY * /opt/program/
 WORKDIR /opt/program
 
-ENTRYPOINT ["python", "serve.py"]
+#ENTRYPOINT ["python", "serve.py"]
 
