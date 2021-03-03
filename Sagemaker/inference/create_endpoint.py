@@ -21,7 +21,7 @@ def parse_arguments():
         "--endpoint_ecr_image_path",
         type=str,
         help=" ",
-        default="251885400447.dkr.ecr.cn-northwest-1.amazonaws.com.cn/yolov4"
+        default="847380964353.dkr.ecr.us-east-1.amazonaws.com/paddle_crnn"
     )
     parser.add_argument(
         "-en",
@@ -29,7 +29,7 @@ def parse_arguments():
         type=str,
         nargs="?",
         help="When set, this argument ",
-        default="yolov4"
+        default="ocr-endpoint-paddlev2"
     )
     parser.add_argument(
         "-i",
@@ -37,7 +37,7 @@ def parse_arguments():
         type=str,
         nargs="?",
         help="When set, this argument ",
-        default="ml.g4dn.xlarge"
+        default="ml.g4dn.2xlarge"
     )
 
     return parser.parse_args()
