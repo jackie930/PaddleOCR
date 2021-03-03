@@ -144,6 +144,6 @@ def invocations():
         'confidences': res['confidence'],
         'boxes': res['bbox']
     }
-    _payload = json.dumps(inference_result,ensure_ascii=False)
+    _payload = json.dumps(inference_result,ensure_ascii=False,cls=MyEncoder)
 
     return flask.Response(response=_payload, status=200, mimetype='application/json')
