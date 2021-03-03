@@ -23,43 +23,29 @@ then
 fi
 
 # Get the region defined in the current configuration
-region=$(aws configure get region)
-#regions=$(aws ec2 describe-regions --all-regions --query "Regions[].{Name:RegionName}" --output text)
+#if you only want to specify one region, use region, otherwise, use regions
+#region=$(aws configure get region)
+regions=$(aws ec2 describe-regions --all-regions --query "Regions[].{Name:RegionName}" --output text)
 
-#for region in $regions; do
-
-#aws s3 cp s3://aws-solutions-${region}/spot-bot-models/cars/model.tar.gz ./
-#tar zxvf model.tar.gz
+for region in $regions; do
 # TODO: update regional location based on https://amazonaws-china.com/releasenotes/available-deep-learning-containers-images/
-if [[ $region =~ ^cn.* ]]
-then
-    fullname="${account}.dkr.ecr.${region}.amazonaws.com.cn/${image}:latest"
-    registry_id="727897471807"
-    registry_uri="${registry_id}.dkr.ecr.${region}.amazonaws.com.cn"
-elif [[ $region = "ap-east-1" ]]
-then
-    fullname="${account}.dkr.ecr.${region}.amazonaws.com/${image}:latest"
-    registry_id="871362719292"
-    registry_uri="${registry_id}.dkr.ecr.${region}.amazonaws.com"
-else
-    fullname="${account}.dkr.ecr.${region}.amazonaws.com/${image}:latest"
-    registry_id="763104351884"
-    registry_uri="${registry_id}.dkr.ecr.${region}.amazonaws.com"
-fi
 
+fullname="${account}.dkr.ecr.${region}.amazonaws.com.cn/${image}:latest"
 echo ${fullname}
 
 # If the repository doesn't exist in ECR, create it.
 aws ecr describe-repositories --repository-names "${image}" --region ${region} || aws ecr create-repository --repository-name "${image}" --region ${region}
 
+aws ecr set-repository-policy \
+    --repository-name "${image}" \
+    --policy-text "file://ecr-policy.json"
 
 # Get the login command from ECR and execute it directly
 $(aws ecr get-login --registry-ids ${account} --region ${region} --no-include-email)
-$(aws ecr get-login --registry-ids ${registry_id} --region ${region} --no-include-email)
 
 # Build the docker image, tag with full name and then push it to ECR
-docker build -t ${image} -f Dockerfile . --build-arg REGISTRY_URI=${registry_uri}
+docker build -t ${image} -f Dockerfile .
 docker tag ${image} ${fullname}
 docker push ${fullname}
 
-#done
+done

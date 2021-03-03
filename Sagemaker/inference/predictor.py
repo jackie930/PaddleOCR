@@ -7,6 +7,7 @@ import warnings
 import numpy as np
 from paddleocr import PaddleOCR
 from inference import *
+import cv2
 
 warnings.filterwarnings("ignore",category=FutureWarning)
 
@@ -66,6 +67,11 @@ def bbox_main(imgpath, detect='paddle'):
                         cls_model_dir='/opt/program/inference/ch_ppocr_mobile_v2.0_cls_infer',
                         use_pdserving=False)  # need to run only once to download and load model into memory
         print ("test!!!!")
+
+        img = cv2.imread(imgpath)
+        img_shape = img.shape
+        print('img shape: ', img_shape)
+
         result = ocr.ocr(imgpath, rec=True)
         print (result)
 
@@ -85,7 +91,7 @@ def bbox_main(imgpath, detect='paddle'):
         res2['bbox'] = bbox
 
         print ('<<<< res2', res2)
-        return res2
+        return res2, img_shape
     else:
         return
 
@@ -118,13 +124,13 @@ def invocations():
     bucket = data['bucket']
     image_uri = data['image_uri']
 
-    #download_file_name = image_uri.split('/')[-1]
-    #print ("<<<<download_file_name ", download_file_name)
+    download_file_name = image_uri.split('/')[-1]
+    print ("<<<<download_file_name ", download_file_name)
 
     #local test
-    download_file_name = './test.jpg'
+    #download_file_name = './test.jpg'
 
-    #s3_client.download_file(bucket, image_uri, download_file_name)
+    s3_client.download_file(bucket, image_uri, download_file_name)
 
     print('Download finished!')
     # inference and send result to RDS and SQS
@@ -134,15 +140,16 @@ def invocations():
     # LOAD MODEL
     label = ''
     try:
-        res = bbox_main(download_file_name, detect='paddle')
+        res, img_shape = bbox_main(download_file_name, detect='paddle')
     except Exception as exception:
         print(exception)
 
     print ("Done inference! ")
     inference_result = {
-        'classes': res['label'],
+        'label': res['label'],
         'confidences': res['confidence'],
-        'boxes': res['bbox']
+        'bbox': res['bbox'],
+        'shape': img_shape
     }
     _payload = json.dumps(inference_result,ensure_ascii=False,cls=MyEncoder)
 
