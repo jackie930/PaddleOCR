@@ -140,9 +140,9 @@ def invocations():
 
     print ("Done inference! ")
     inference_result = {
-        'classes':res['label'].tolist(),
-        'confidences':res['confidence'].tolist(),
-        'boxes':res['bbox'].tolist()
+        'classes': res['label'],
+        'confidences': res['confidence'],
+        'boxes': res['bbox']
     }
     _payload = json.dumps(inference_result,ensure_ascii=False)
 
