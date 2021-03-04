@@ -755,7 +755,7 @@ class SASTProcessTrain(object):
             text_tags,
             tcl_ratio=0.3,
             ds_ratio=0.25)
-        # print("test--------tvo_map shape:", tvo_map.shape)
+        # print("test.txt--------tvo_map shape:", tvo_map.shape)
 
         im_padded[:, :, 2] -= 0.485 * 255
         im_padded[:, :, 1] -= 0.456 * 255

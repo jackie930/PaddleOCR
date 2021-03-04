@@ -26,7 +26,7 @@ def get_check_global_params(mode):
         check_params = check_params + [
             'train_batch_size_per_card', 'test_batch_size_per_card'
         ]
-    elif mode == "test":
+    elif mode == "test.txt":
         check_params = check_params + ['test_batch_size_per_card']
     return check_params
 

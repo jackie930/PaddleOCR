@@ -1969,7 +1969,7 @@ def read(filename, default=None):
 def get_main_app(argv=[]):
     """
     Standard boilerplate Qt application code.
-    Do everything but app.exec_() -- so that we can test the application in one thread
+    Do everything but app.exec_() -- so that we can test.txt the application in one thread
     """
     app = QApplication(argv)
     app.setApplicationName(__appname__)
