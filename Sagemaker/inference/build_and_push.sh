@@ -11,8 +11,8 @@ image=$1
 
 if [ "$image" == "" ]
 then
-    echo "Use image name paddle_crnn"
-    image="paddle_crnn"
+    echo "Use image name ocr-endpoint"
+    image="ocr-endpoint"
 fi
 
 # Get the account number associated with the current IAM credentials
