@@ -7,6 +7,8 @@ ENV PYTHONUNBUFFERED=TRUE
 ENV PYTHONDONTWRITEBYTECODE=TRUE
 ENV PATH="/opt/program:${PATH}"
 
+ENV PYTHONIOENCODING=utf-8
+
 RUN pip install boto3 -i https://opentuna.cn/pypi/web/simple
 RUN pip install Cython -i https://opentuna.cn/pypi/web/simple
 RUN pip install opencv-python==3.2.0.8 -i https://opentuna.cn/pypi/web/simple
