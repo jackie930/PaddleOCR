@@ -81,7 +81,10 @@ def id_ocr_main(
         print (result)
 
         # save json file
-        json_file = file_name.replace(".png", ".json")
+        (tml_filename, extension) = os.path.splitext(file_name)
+        json_file=tml_filename+'.json'
+        print ('<<<<json file name: ', json_file)
+
         with open(json_file, "w", encoding='utf-8') as fw:  # 建议改为.split('.')
             json.dump(result, fw, ensure_ascii=False)
             print("write json file success!")
