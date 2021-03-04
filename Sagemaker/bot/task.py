@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 import os
 import sys
@@ -8,6 +7,12 @@ import json
 from boto3.session import Session
 from pprint import pprint
 
+import sys
+try:
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
+except:
+    pass
 
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 from datetime import datetime
