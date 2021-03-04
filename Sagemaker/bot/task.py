@@ -8,7 +8,6 @@ import json
 from boto3.session import Session
 from pprint import pprint
 
-from dependency.main_ocr import ocr
 
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 from datetime import datetime
