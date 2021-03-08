@@ -96,7 +96,7 @@ def id_ocr_main(
 
         # update elasticsearch
         doc_id = x["_id"]
-        update_status_by_id(es, doc_id, status="COMPLETED", output=label)
+        update_status_by_id(es, doc_id, status="COMPLETED", output=str(label))
 
         # delete file locally
         delete_file(json_file)
@@ -161,7 +161,7 @@ def invoke_endpoint(session, endpoint_name, bucket, image_uri):
     )
 
     outputs = response["Body"].read()
-    outputs = outputs.decode("utf-8")
+    outputs = json.loads(outputs.decode("utf-8"))
     print(outputs)
 
     # return str(outputs)
