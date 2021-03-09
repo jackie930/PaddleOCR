@@ -164,6 +164,9 @@ def invoke_endpoint(session, endpoint_name, bucket, image_uri):
     outputs = json.loads(outputs.decode("utf-8"))
     print(outputs)
 
+    #small bug fix
+    outputs['confidence'] = outputs['confidences']
+    e1 = outputs.pop('confidences')
     # return str(outputs)
     return outputs
 

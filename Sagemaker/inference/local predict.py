@@ -44,9 +44,10 @@ def infer(input_image):
 
 #     runtime = session.client("runtime.sagemaker",config=config)
     response = sagemaker_runtime_client.invoke_endpoint(
-        EndpointName='ocr-endpoint-paddlev2',
+        EndpointName='ocr-endpoint-paddle',
         ContentType="application/json",
         Body=payload)
 
     result = json.loads(response["Body"].read())
     print (result)
+
