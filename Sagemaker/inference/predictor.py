@@ -51,9 +51,9 @@ def bbox_main(imgpath, detect='paddle'):
     (filename, extension) = os.path.splitext(tempfilename)
 
     # make sure the model parameters exist
-    for i in ['/opt/program/inference/ch_ppocr_mobile_v2.0_det_infer',
-              '/opt/program/inference/ch_ppocr_mobile_v2.0_rec_infer',
-              '/opt/program/inference/ch_ppocr_mobile_v2.0_cls_infer']:
+    for i in ['/opt/program/inference/ch_ppocr_server_v2.0_det_infer',
+              '/opt/program/inference/ch_ppocr_server_v2.0_rec_infer',
+              '/opt/program/inference/ch_ppocr_server_v2.0_cls_infer']:
         if os.path.exists(i):
             print("<<<<pretrained model exists for :", i)
         else:
@@ -62,9 +62,9 @@ def bbox_main(imgpath, detect='paddle'):
 
     if detect == 'paddle':
         print ("start!!!!")
-        ocr = PaddleOCR(det_model_dir='/opt/program/inference/ch_ppocr_mobile_v2.0_det_infer',
-                        rec_model_dir='/opt/program/inference/ch_ppocr_mobile_v2.0_rec_infer',
-                        cls_model_dir='/opt/program/inference/ch_ppocr_mobile_v2.0_cls_infer',
+        ocr = PaddleOCR(det_model_dir='/opt/program/inference/ch_ppocr_server_v2.0_det_infer',
+                        rec_model_dir='/opt/program/inference/ch_ppocr_server_v2.0_rec_infer',
+                        cls_model_dir='/opt/program/inference/ch_ppocr_server_v2.0_cls_infer',
                         use_pdserving=False)  # need to run only once to download and load model into memory
         print ("test!!!!")
 
