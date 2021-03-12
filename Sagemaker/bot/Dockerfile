@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:1.15.2-gpu-py3
+FROM python:3.7.1-stretch
 
 RUN mkdir -p /opt/program
 
@@ -9,9 +9,11 @@ ENV PATH="/opt/program:${PATH}"
 
 ENV PYTHONIOENCODING=utf-8
 
+RUN pip install --upgrade pip
+
 RUN pip install boto3 -i https://opentuna.cn/pypi/web/simple
 RUN pip install Cython -i https://opentuna.cn/pypi/web/simple
-RUN pip install opencv-python==3.2.0.8 -i https://opentuna.cn/pypi/web/simple
+RUN pip install opencv-python
 RUN pip install elasticsearch==7.8.0 -i https://opentuna.cn/pypi/web/simple
 RUN pip install easydict -i https://opentuna.cn/pypi/web/simple
 RUN pip install glog -i https://opentuna.cn/pypi/web/simple
