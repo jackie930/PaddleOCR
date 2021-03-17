@@ -31,7 +31,7 @@ inference-finetune  -｜...
 source activate python3
 cd Sagemaker/prepare/
 # install dependency
-pip install trdg
+pip install trdg==1.6.0
 #run 
 cd ~/PaddleOCR/Sagemaker/prepare/
 bash gendata.sh 0.2
